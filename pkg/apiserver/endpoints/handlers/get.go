@@ -157,6 +157,10 @@ func getRequestOptions(req *http.Request, scope handlers.RequestScope, into runt
 			startingIndex = 3
 		}
 
+		if len(requestInfo.Parts) < 2 {
+			return errors.NewBadRequest(fmt.Sprintf("The request url %s is invalid", req.URL.String()))
+		}
+
 		p := strings.Join(requestInfo.Parts[startingIndex:], "/")
 
 		// ensure non-empty subpaths correctly reflect a leading slash
