@@ -17,6 +17,7 @@ limitations under the License.
 package installer
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -201,7 +202,7 @@ func (p *fakeCMProvider) valuesFor(name types.NamespacedName, info provider.Cust
 	}
 }
 
-func (p *fakeCMProvider) GetMetricByName(name types.NamespacedName, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValue, error) {
+func (p *fakeCMProvider) GetMetricByName(ctx context.Context, name types.NamespacedName, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValue, error) {
 	metricId, values, ok := p.valuesFor(name, info, metricSelector)
 	if !ok {
 		return nil, fmt.Errorf("non-existent metric requested (id: %s)", metricId)
@@ -210,7 +211,7 @@ func (p *fakeCMProvider) GetMetricByName(name types.NamespacedName, info provide
 	return &values[0], nil
 }
 
-func (p *fakeCMProvider) GetMetricBySelector(namespace string, selector labels.Selector, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValueList, error) {
+func (p *fakeCMProvider) GetMetricBySelector(ctx context.Context, namespace string, selector labels.Selector, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValueList, error) {
 	metricId, values, ok := p.valuesFor(types.NamespacedName{Namespace: namespace, Name: "*"}, info, metricSelector)
 	if !ok {
 		return nil, fmt.Errorf("non-existent metric requested (id: %s)", metricId)

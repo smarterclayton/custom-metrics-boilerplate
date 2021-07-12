@@ -17,13 +17,12 @@ limitations under the License.
 package provider
 
 import (
+	"context"
 	"net/http"
 	"sync"
 	"time"
 
 	"github.com/emicklei/go-restful"
-	"k8s.io/klog/v2"
-
 	apierr "k8s.io/apimachinery/pkg/api/errors"
 	apimeta "k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -32,6 +31,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/dynamic"
+	"k8s.io/klog/v2"
 	"k8s.io/metrics/pkg/apis/custom_metrics"
 	"k8s.io/metrics/pkg/apis/external_metrics"
 
@@ -100,6 +100,8 @@ type metricValue struct {
 	labels labels.Set
 	value  resource.Quantity
 }
+
+var _ provider.MetricsProvider = &testingProvider{}
 
 // testingProvider is a sample implementation of provider.MetricsProvider which stores a map of fake metrics
 type testingProvider struct {
@@ -283,7 +285,7 @@ func (p *testingProvider) metricsFor(namespace string, selector labels.Selector,
 	}, nil
 }
 
-func (p *testingProvider) GetMetricByName(name types.NamespacedName, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValue, error) {
+func (p *testingProvider) GetMetricByName(ctx context.Context, name types.NamespacedName, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValue, error) {
 	p.valuesLock.RLock()
 	defer p.valuesLock.RUnlock()
 
@@ -294,7 +296,7 @@ func (p *testingProvider) GetMetricByName(name types.NamespacedName, info provid
 	return p.metricFor(value, name, labels.Everything(), info, metricSelector)
 }
 
-func (p *testingProvider) GetMetricBySelector(namespace string, selector labels.Selector, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValueList, error) {
+func (p *testingProvider) GetMetricBySelector(ctx context.Context, namespace string, selector labels.Selector, info provider.CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValueList, error) {
 	p.valuesLock.RLock()
 	defer p.valuesLock.RUnlock()
 
@@ -320,7 +322,7 @@ func (p *testingProvider) ListAllMetrics() []provider.CustomMetricInfo {
 	return metrics
 }
 
-func (p *testingProvider) GetExternalMetric(namespace string, metricSelector labels.Selector, info provider.ExternalMetricInfo) (*external_metrics.ExternalMetricValueList, error) {
+func (p *testingProvider) GetExternalMetric(ctx context.Context, namespace string, metricSelector labels.Selector, info provider.ExternalMetricInfo) (*external_metrics.ExternalMetricValueList, error) {
 	p.valuesLock.RLock()
 	defer p.valuesLock.RUnlock()
 

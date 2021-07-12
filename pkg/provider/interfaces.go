@@ -17,6 +17,7 @@ limitations under the License.
 package provider
 
 import (
+	"context"
 	"fmt"
 
 	apimeta "k8s.io/apimachinery/pkg/api/meta"
@@ -84,11 +85,11 @@ func (i CustomMetricInfo) Normalized(mapper apimeta.RESTMapper) (normalizedInfo 
 type CustomMetricsProvider interface {
 	// GetMetricByName fetches a particular metric for a particular object.
 	// The namespace will be empty if the metric is root-scoped.
-	GetMetricByName(name types.NamespacedName, info CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValue, error)
+	GetMetricByName(ctx context.Context, name types.NamespacedName, info CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValue, error)
 
 	// GetMetricBySelector fetches a particular metric for a set of objects matching
 	// the given label selector.  The namespace will be empty if the metric is root-scoped.
-	GetMetricBySelector(namespace string, selector labels.Selector, info CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValueList, error)
+	GetMetricBySelector(ctx context.Context, namespace string, selector labels.Selector, info CustomMetricInfo, metricSelector labels.Selector) (*custom_metrics.MetricValueList, error)
 
 	// ListAllMetrics provides a list of all available metrics at
 	// the current time.  Note that this is not allowed to return
@@ -102,7 +103,7 @@ type CustomMetricsProvider interface {
 // implementation how to translate metricSelector to a filter for metric values.
 // Namespace can be used by the implemetation for metric identification, access control or ignored.
 type ExternalMetricsProvider interface {
-	GetExternalMetric(namespace string, metricSelector labels.Selector, info ExternalMetricInfo) (*external_metrics.ExternalMetricValueList, error)
+	GetExternalMetric(ctx context.Context, namespace string, metricSelector labels.Selector, info ExternalMetricInfo) (*external_metrics.ExternalMetricValueList, error)
 
 	ListAllExternalMetrics() []ExternalMetricInfo
 }
