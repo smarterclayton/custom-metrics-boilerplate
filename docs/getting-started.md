@@ -60,7 +60,7 @@ import (
     "k8s.io/client-go/dynamic"
     "k8s.io/metrics/pkg/apis/custom_metrics"
 
-    "github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/provider"
+    "sigs.k8s.io/custom-metrics-apiserver/pkg/provider"
     "k8s.io/metrics/pkg/apis/external_metrics"
 )
 ```
@@ -315,8 +315,8 @@ import (
     "k8s.io/apimachinery/pkg/util/wait"
     "k8s.io/component-base/logs"
 
-    basecmd "github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/cmd"
-    "github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/provider"
+    basecmd "sigs.k8s.io/custom-metrics-apiserver/pkg/cmd"
+    "sigs.k8s.io/custom-metrics-apiserver/pkg/provider"
 
     // make this the path to the provider that you just wrote
     yourprov "github.com/user/repo/pkg/provider"

@@ -11,7 +11,7 @@ all: build-test-adapter
 
 .PHONY: build-test-adapter
 build-test-adapter: test-adapter/generated/openapi/zz_generated.openapi.go
-	CGO_ENABLED=0 GOOS=linux GOARCH=$(ARCH) go build -o $(OUT_DIR)/$(ARCH)/test-adapter github.com/kubernetes-sigs/custom-metrics-apiserver/test-adapter
+	CGO_ENABLED=0 GOOS=linux GOARCH=$(ARCH) go build -o $(OUT_DIR)/$(ARCH)/test-adapter sigs.k8s.io/custom-metrics-apiserver/test-adapter
 
 test-adapter/generated/openapi/zz_generated.openapi.go: go.mod go.sum
 	go install -mod=readonly k8s.io/kube-openapi/cmd/openapi-gen

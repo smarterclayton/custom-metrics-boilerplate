@@ -30,7 +30,7 @@ import (
 	"k8s.io/client-go/dynamic"
 	"k8s.io/metrics/pkg/apis/custom_metrics"
 
-	"github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/provider"
+	"sigs.k8s.io/custom-metrics-apiserver/pkg/provider"
 )
 
 // ResourceFor attempts to resolve a single qualified resource for the given metric.

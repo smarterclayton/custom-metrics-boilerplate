@@ -1,4 +1,4 @@
-module github.com/kubernetes-sigs/custom-metrics-apiserver
+module sigs.k8s.io/custom-metrics-apiserver
 
 go 1.16
 

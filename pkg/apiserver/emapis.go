@@ -25,10 +25,10 @@ import (
 	"k8s.io/apiserver/pkg/endpoints/discovery"
 	genericapiserver "k8s.io/apiserver/pkg/server"
 
-	specificapi "github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/apiserver/installer"
-	"github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/provider"
-	metricstorage "github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/registry/external_metrics"
 	"k8s.io/metrics/pkg/apis/external_metrics"
+	specificapi "sigs.k8s.io/custom-metrics-apiserver/pkg/apiserver/installer"
+	"sigs.k8s.io/custom-metrics-apiserver/pkg/provider"
+	metricstorage "sigs.k8s.io/custom-metrics-apiserver/pkg/registry/external_metrics"
 )
 
 // InstallExternalMetricsAPI registers the api server in Kube Aggregator

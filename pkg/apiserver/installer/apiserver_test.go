@@ -41,11 +41,11 @@ import (
 	installem "k8s.io/metrics/pkg/apis/external_metrics/install"
 	emv1beta1 "k8s.io/metrics/pkg/apis/external_metrics/v1beta1"
 
-	"github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/provider"
-	custommetricstorage "github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/registry/custom_metrics"
-	externalmetricstorage "github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/registry/external_metrics"
-	sampleprovider "github.com/kubernetes-sigs/custom-metrics-apiserver/test-adapter/provider"
 	"k8s.io/metrics/pkg/apis/external_metrics"
+	"sigs.k8s.io/custom-metrics-apiserver/pkg/provider"
+	custommetricstorage "sigs.k8s.io/custom-metrics-apiserver/pkg/registry/custom_metrics"
+	externalmetricstorage "sigs.k8s.io/custom-metrics-apiserver/pkg/registry/external_metrics"
+	sampleprovider "sigs.k8s.io/custom-metrics-apiserver/test-adapter/provider"
 )
 
 // defaultAPIServer exposes nested objects for testability.

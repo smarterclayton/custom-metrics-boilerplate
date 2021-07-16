@@ -24,7 +24,7 @@ import (
 	genericoptions "k8s.io/apiserver/pkg/server/options"
 	openapicommon "k8s.io/kube-openapi/pkg/common"
 
-	"github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/apiserver"
+	"sigs.k8s.io/custom-metrics-apiserver/pkg/apiserver"
 )
 
 type CustomMetricsAdapterServerOptions struct {

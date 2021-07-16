@@ -25,10 +25,10 @@ import (
 	genericapiserver "k8s.io/apiserver/pkg/server"
 	"k8s.io/client-go/informers"
 
-	"github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/apiserver/installer"
-	"github.com/kubernetes-sigs/custom-metrics-apiserver/pkg/provider"
 	cminstall "k8s.io/metrics/pkg/apis/custom_metrics/install"
 	eminstall "k8s.io/metrics/pkg/apis/external_metrics/install"
+	"sigs.k8s.io/custom-metrics-apiserver/pkg/apiserver/installer"
+	"sigs.k8s.io/custom-metrics-apiserver/pkg/provider"
 )
 
 var (
